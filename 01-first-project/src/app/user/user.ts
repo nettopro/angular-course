@@ -1,4 +1,4 @@
-import { Component, computed, input, Input } from '@angular/core';
+import { Component, computed, EventEmitter, input, Input, output, Output } from '@angular/core';
 import { DUMMY_USERS } from '../dummy-users';
 
 @Component({
@@ -8,22 +8,24 @@ import { DUMMY_USERS } from '../dummy-users';
   styleUrl: './user.css'
 })
 export class User {
-  // //Valor será inicializado fora do código typescript
-  // //Atualmente nó codigo do app
-  // @Input({required: true}) avatar !: string; 
-  // @Input({required: true}) name !: string;
+  //Value will be iniatilized outside of typescript code
+  //Currently in the app section of code (app.html / app.ts)
+  @Input({required: true}) id !: string;
+  @Input({required: true}) avatar !: string; 
+  @Input({required: true}) name !: string;
+  
+  @Output() select = new EventEmitter();
 
-  avatar = input.required<string>();
-  name = input.required<string>(); //These are read-only signals (cannot be reassigned)
+  //Same thing as the output above but less verbose
+  //select = output<string>();
 
-  imagePath = computed(() => 'assets/users' + this.avatar());
-
-  // public get imagePath() : string {
-  //   return 'assets/users/' + this.avatar;
-  // }
+  public get imagePath() : string {
+    return 'assets/users/' + this.avatar;
+  }
   
 
   onSelectUser() {
+    this.select.emit(this.id);
   }
   
 }
