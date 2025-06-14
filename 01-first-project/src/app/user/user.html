@@ -2,8 +2,9 @@
   <button (click)="onSelectUser()">
     <img
       [src]="imagePath()"
-      [alt]="selectedUser().name"
-    /> <!-- Usar o () como se fosse uma função na propriedade é usado em signals para refletir a necessidade de mudança dinâmica -->
-    <span>{{ selectedUser().name }}</span> 
+      [alt]="name()"
+    /> <!-- Usar o () depois do nome da variavel como se fosse uma função na propriedade 
+            é usado em signals para refletir a necessidade de mudança dinâmica -->
+    <span>{{ name() }}</span> 
   </button>
 </div>
