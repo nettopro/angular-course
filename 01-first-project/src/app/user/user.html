@@ -1,10 +1,10 @@
 <div>
-  <button (click)="onSelectUser()">
+  <button [class.active]="selected" (click)="onSelectUser()">
     <img
       [src]="imagePath"
-      [alt]="name"
+      [alt]="user.name"
     /> <!-- Usar o () depois do nome da variavel como se fosse uma função na propriedade 
             é usado em signals para refletir a necessidade de mudança dinâmica -->
-    <span>{{ name }}</span> 
+    <span>{{ user.name }}</span> 
   </button>
 </div>

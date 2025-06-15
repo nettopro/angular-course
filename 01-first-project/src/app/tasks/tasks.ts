@@ -1,16 +1,51 @@
 import { Component, EventEmitter, Input, output, Output } from '@angular/core';
+import { Task } from "./task/task";
 
 @Component({
   selector: 'app-tasks',
-  imports: [],
+  imports: [Task],
   templateUrl: './tasks.html',
   styleUrl: './tasks.css'
 })
 export class Tasks {
   //Accepts undefined value 
   //(is not strictly string in this case)
-  @Input() name ?: string 
-
+  @Input({required: true}) name !: string; 
   //Same thing below but written more verbosely
   //@Input() name : string | undefined;
+  @Input({required: true}) userId !: string;
+
+  tasks = [
+    {
+      id: 't1',
+      userId: 'u1',
+      title: 'Master Angular',
+      summary: 'Learn all the basic and advanced features of Angular & how to apply them.',
+      dueDate: '2025-12-31'
+    },
+    {
+      id: 't2',
+      userId: 'u3',
+      title: 'Build first prototype',
+      summary: 'Build a first prototype of the online shop website',
+      dueDate: '2024-05-31',
+    },
+    {
+      id: 't3',
+      userId: 'u3',
+      title: 'Prepare issue template',
+      summary:
+        'Prepare and describe an issue template which will help with project management',
+      dueDate: '2024-06-15',
+    },
+  ];
+
+  
+  public get selectedUserTasks() {
+    return this.tasks.filter((task) => task.userId === this.userId);
+  }
+  
+  onCompleteTask(id: string) {
+    this.tasks = this.tasks.filter((task) => task.id !== id);
+  }
 }
