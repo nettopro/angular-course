@@ -1,19 +1,21 @@
-import { Component, EventEmitter, Input, output, Output } from '@angular/core';
+import { Component, EventEmitter, output, Output, input } from '@angular/core';
 import { Task } from "./task/task";
+import { NewTask } from "./new-task/new-task";
 
 @Component({
   selector: 'app-tasks',
-  imports: [Task],
+  imports: [Task, NewTask],
   templateUrl: './tasks.html',
   styleUrl: './tasks.css'
 })
 export class Tasks {
   //Accepts undefined value 
   //(is not strictly string in this case)
-  @Input({required: true}) name !: string; 
+  readonly name = input.required<string>(); 
   //Same thing below but written more verbosely
   //@Input() name : string | undefined;
-  @Input({required: true}) userId !: string;
+  readonly userId = input.required<string>();
+  isAddingTask = false;
 
   tasks = [
     {
@@ -42,10 +44,18 @@ export class Tasks {
 
   
   public get selectedUserTasks() {
-    return this.tasks.filter((task) => task.userId === this.userId);
+    return this.tasks.filter((task) => task.userId === this.userId());
   }
   
   onCompleteTask(id: string) {
     this.tasks = this.tasks.filter((task) => task.id !== id);
+  }
+
+  onStartAddTask() {
+    this.isAddingTask = true;
+  }
+
+  onCancelAddTask() {
+    this.isAddingTask = false;
   }
 }
