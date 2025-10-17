@@ -1,4 +1,11 @@
-import { Component, input, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostBinding,
+  inject,
+  input,
+  ViewEncapsulation,
+} from '@angular/core';
 
 @Component({
   selector: 'app-control',
@@ -10,10 +17,20 @@ import { Component, input, ViewEncapsulation } from '@angular/core';
   //The textarea and input styles of the css were not being applied
   //So by removing the encapsulation, the styles were then applied globally
   //And it then worked in this scenario
-  host: {
-    class: 'control'
-  }
+   host: {
+     class: 'control',
+     '(click)': 'onClick()'
+  },
+  //Can also allow for listening to events on host property
 })
 export class ControlComponent {
-  label = input.required<string>()
+  //@HostBinding('class') className = 'control';
+  //Achieves the same as host property, disencouraged as it's obsolete
+  label = input.required<string>();
+  private el = inject(ElementRef);
+  //Demonstration of getting information directly of the host element
+  onClick() {
+    console.log('Clicked!');
+    console.log(this.el);
+  }
 }
