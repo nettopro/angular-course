@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './arrow-button.component.css'
 })
 export class ArrowButtonComponent {
-
+  
 }

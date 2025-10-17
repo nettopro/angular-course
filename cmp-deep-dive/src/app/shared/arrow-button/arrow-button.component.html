@@ -1,2 +1,9 @@
-  <span> Logout </span>
-  <span class="icon"> → </span>
+<span>
+  <ng-content />
+</span>
+<ng-content select=".icon">
+  →
+  <!-- Wrapping it inside ng-content means it 
+   becomes fallback content if ng-content fails to select
+   , in this case the icon.-->
+</ng-content>
